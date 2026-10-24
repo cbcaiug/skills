@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // GAS writes with the deploying account's IAM identity, which BYPASSES these rules.
+    // So rules only need to protect the browser: read own data, write NOTHING.
+
+    // Public: plan list + app settings (no secrets here, ever)
+    match /config/{doc} { allow read: if true; allow write: if false; }
+    match /plans/{planId} { allow read: if true; allow write: if false; }
+
+    // A user may read ONLY their own balance, ledger and payments
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+      match /ledger/{entry} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow write: if false;
+      }
+    }
+    match /payments/{ref} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.uid;
+      allow write: if false;
+    }
+
+    // Everything else (including _selftest) is closed to browsers
+    match /{document=**} { allow read, write: if false; }
+  }
+}

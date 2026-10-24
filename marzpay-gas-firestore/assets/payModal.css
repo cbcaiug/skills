@@ -1,0 +1,45 @@
+/* payModal.css — uses your theme variables when present; fallbacks match an amber/dark UI.
+   Map these to your app: --pm-accent --pm-bg --pm-bg2 --pm-border --pm-text --pm-dim --pm-ok --pm-warn --pm-bad */
+.pm-overlay{--pm-accent:var(--amber,#f2a93b);--pm-bg:var(--panel,#1b1812);--pm-bg2:var(--panel-2,#201c15);--pm-border:var(--border,#3a3222);
+  --pm-text:var(--text,#ede6d6);--pm-dim:var(--text-dim,#a89d85);--pm-ok:var(--good,#7bb887);--pm-warn:var(--warn,#d9985a);--pm-bad:var(--bad,#c47764);
+  position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(10,8,5,.85);backdrop-filter:blur(6px);padding:12px}
+.pm-card{width:100%;max-width:420px;max-height:92vh;overflow:auto;background:var(--pm-bg);border:1px solid var(--pm-border);border-radius:12px;padding:22px;color:var(--pm-text);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.pm-card h3{margin:0 0 14px;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:var(--pm-accent)}
+.pm-form{border:0;padding:0;margin:0;min-width:0;transition:opacity .15s}
+.pm-locked .pm-form{opacity:.45;filter:saturate(.5)}               /* greyed-out while a request is in flight */
+.pm-label{display:block;margin:12px 0 5px;font-size:12.5px;color:var(--pm-dim)}
+.pm-input{width:100%;padding:10px;border-radius:7px;border:1px solid var(--pm-border);background:var(--pm-bg2);color:var(--pm-text);font:inherit;font-size:15px}
+.pm-input:focus{outline:2px solid var(--pm-accent);outline-offset:1px}
+.pm-input:disabled{cursor:not-allowed}
+.pm-phone-row{display:flex;gap:8px;align-items:stretch}
+.pm-dial{display:flex;align-items:center;padding:0 12px;border:1px solid var(--pm-border);border-radius:7px;background:var(--pm-bg2);color:var(--pm-dim);font-family:monospace}
+.pm-help{margin:7px 0 0;font-size:12px;color:var(--pm-dim)}
+.pm-preview{margin:6px 0 0;font-size:12.5px;color:var(--pm-ok);min-height:1em}
+.pm-error{margin:8px 0 0;padding:9px 11px;border-radius:7px;font-size:12.5px;background:rgba(196,119,100,.15);border:1px solid rgba(196,119,100,.4);color:var(--pm-bad)}
+.pm-banner{margin:0 0 12px;padding:9px 11px;border-radius:7px;font-size:12.5px;background:rgba(217,152,90,.14);border:1px solid var(--pm-warn);color:var(--pm-warn)}
+.pm-link{background:none;border:0;padding:0;color:var(--pm-accent);text-decoration:underline;cursor:pointer;font:inherit}
+.pm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.pm-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:110px;padding:11px 18px;border-radius:8px;border:1px solid var(--pm-border);font:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:transform .12s,filter .12s,opacity .12s}
+.pm-btn:active{transform:translateY(1px) scale(.98)}
+.pm-btn-primary{background:var(--pm-accent);border-color:var(--pm-accent);color:#1a1408}
+.pm-btn-secondary{background:var(--pm-bg2);color:var(--pm-text)}
+.pm-btn:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.3)}   /* Cancel is never disabled, so it stays vivid */
+.pm-btn[hidden]{display:none}
+.pm-loading::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid rgba(0,0,0,.25);border-top-color:#1a1408;animation:pm-spin .7s linear infinite}
+@keyframes pm-spin{to{transform:rotate(360deg)}}
+.pm-status{text-align:center;padding:6px 0 4px}
+.pm-status h4{margin:10px 0 6px;font-size:1.05rem}
+.pm-status p{margin:6px 0;font-size:13.5px;line-height:1.55;color:var(--pm-dim)}
+.pm-ico{width:46px;height:46px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+.pm-ico-spinner{border:4px solid var(--pm-border);border-top-color:var(--pm-accent);animation:pm-spin .9s linear infinite}
+.pm-ico-ok{background:rgba(123,184,135,.18);color:var(--pm-ok)}
+.pm-ico-bad{background:rgba(196,119,100,.18);color:var(--pm-bad)}
+.pm-ico-warn{background:rgba(217,152,90,.18);color:var(--pm-warn)}
+.pm-status-success{border:1px solid var(--pm-ok);border-radius:10px;padding:14px}
+.pm-status-failed{border:1px solid var(--pm-bad);border-radius:10px;padding:14px}
+.pm-status-cancelled,.pm-status-timeout{border:1px solid var(--pm-warn);border-radius:10px;padding:14px}
+.pm-status p.pm-warn{padding:9px 11px;border-radius:7px;background:rgba(217,152,90,.14);border:1px solid var(--pm-warn);color:var(--pm-warn);font-weight:600}
+.pm-timer{font-family:monospace;font-size:12px}
+.pm-bar{height:5px;border-radius:3px;background:var(--pm-border);overflow:hidden;margin-top:6px}
+.pm-bar i{display:block;height:100%;width:0;background:var(--pm-accent);transition:width 1s linear}
+@media (prefers-reduced-motion:reduce){.pm-ico-spinner,.pm-loading::before{animation-duration:2.5s}}

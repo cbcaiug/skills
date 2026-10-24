@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Browser Guard — styles
+   Namespaced with `bg-guard-` so it can be dropped into ANY existing app
+   without colliding with the host site's CSS. Colors/sizes are exposed as
+   CSS custom properties on :root so the host app can re-theme without
+   touching this file.
+   ========================================================================== */
+
+:root {
+  --bg-guard-accent: #075e54;
+  --bg-guard-warn-bg: #fff3cd;
+  --bg-guard-warn-border: #ffc107;
+  --bg-guard-danger: #dc3545;
+  --bg-guard-success: #28a745;
+  --bg-guard-text: #1f2937;
+  --bg-guard-radius: 12px;
+  --bg-guard-z: 999999; /* sits above everything in the host app */
+}
+
+.bg-guard-hidden {
+  display: none !important;
+}
+
+/* ---- Verifying overlay (shown for a beat on load while we check) ---- */
+.bg-guard-verifying {
+  position: fixed;
+  inset: 0;
+  z-index: var(--bg-guard-z);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: #fff;
+  transition: opacity 0.25s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.bg-guard-spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-left-color: #fff;
+  border-radius: 50%;
+  animation: bg-guard-spin 1s linear infinite;
+  margin-bottom: 14px;
+}
+
+@keyframes bg-guard-spin {
+  to { transform: rotate(360deg); }
+}
+
+.bg-guard-check svg {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 14px;
+  color: var(--bg-guard-success);
+}
+
+/* ---- Unsupported-browser banner + full-screen blur/lock ---- */
+.bg-guard-blur > *:not(.bg-guard-banner):not(.bg-guard-offline):not(.bg-guard-toast):not(.bg-guard-popup) {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.bg-guard-banner {
+  position: fixed;
+  inset: 0;
+  z-index: var(--bg-guard-z);
+  background: var(--bg-guard-warn-bg);
+  border-bottom: 2px solid var(--bg-guard-warn-border);
+  overflow-y: auto;
+  padding: 20px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.bg-guard-banner-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.bg-guard-banner-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.bg-guard-banner-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.bg-guard-banner-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bg-guard-text);
+  margin-bottom: 4px;
+}
+
+.bg-guard-banner-sub {
+  margin: 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.bg-guard-detected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 12px;
+  color: var(--bg-guard-text);
+}
+
+.bg-guard-detected svg {
+  width: 20px;
+  height: 20px;
+}
+
+.bg-guard-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 480px) {
+  .bg-guard-buttons {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+.bg-guard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 8px;
+  background: #fff;
+  color: var(--bg-guard-text);
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1.5px solid #e2e2e2;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s, transform 0.1s;
+  cursor: pointer;
+}
+
+.bg-guard-btn:active { transform: scale(0.97); }
+.bg-guard-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.bg-guard-fallback {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #ffeeba;
+  padding-top: 10px;
+}
+
+.bg-guard-fallback .bg-guard-store-hint {
+  margin-top: 8px;
+  font-style: italic;
+  color: #888;
+}
+
+.bg-guard-copy-btn {
+  background: none;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ---- Offline overlay ---- */
+.bg-guard-offline {
+  position: fixed;
+  inset: 0;
+  z-index: var(--bg-guard-z);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background: rgba(240, 242, 245, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.bg-guard-offline-card {
+  max-width: 300px;
+  background: #fff;
+  border-radius: var(--bg-guard-radius);
+  padding: 26px 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.bg-guard-offline-card svg {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 10px;
+  color: var(--bg-guard-danger);
+  display: block;
+}
+
+.bg-guard-offline-card h2 {
+  margin: 6px 0;
+  font-size: 17px;
+  color: var(--bg-guard-text);
+}
+
+.bg-guard-offline-card p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ---- Toasts (online / slow connection) ---- */
+.bg-guard-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-guard-success);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  z-index: var(--bg-guard-z);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.bg-guard-toast svg { width: 18px; height: 18px; }
+.bg-guard-toast.bg-guard-slow { background: #b8860b; }
+
+/* ---- Pop-up blocked banner (non-blocking, dismissible) ---- */
+.bg-guard-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 92%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-guard-warn-bg);
+  border: 1px solid var(--bg-guard-warn-border);
+  color: var(--bg-guard-text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: var(--bg-guard-z);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.bg-guard-popup svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.bg-guard-popup-close {
+  margin-left: 4px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  color: #777;
+  padding: 2px 4px;
+}
+
+@media (max-width: 480px) {
+  .bg-guard-banner-head { flex-direction: column; }
+}

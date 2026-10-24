@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Soft Paper UI — demo</title>
+<link rel="stylesheet" href="theme.css">
+<style>html:not([data-theme-pack]) body{font-family:Arial,sans-serif;background:#fff;color:#000}html:not([data-theme-pack]) button{padding:6px 10px}.grid-icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}.grid-icons div{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:14px;background:var(--sp-surface);border:1px solid var(--sp-border);font-size:.68rem;color:var(--sp-text-2);text-align:center;word-break:break-all}.sec{margin-top:28px}</style>
+</head>
+<body>
+<div class="sp-shell" id="shell">
+  <aside class="sp-sidebar" aria-label="Sidebar">
+    <div class="sp-sidebar-head"><span class="sp-navbar-brand"><span class="sp-mark">✺</span><span class="sp-nav-text">Soft Paper</span></span></div>
+    <a href="#" aria-current="page" data-tip="Home"><span data-icon="house"></span><span class="sp-nav-text">Home</span></a>
+    <a href="#" data-tip="Chats"><span data-icon="messages-square"></span><span class="sp-nav-text">Chats</span></a>
+    <a href="#" data-tip="Projects"><span data-icon="folder"></span><span class="sp-nav-text">Projects</span></a>
+    <a href="#" data-tip="Library"><span data-icon="book-open"></span><span class="sp-nav-text">Library</span></a>
+    <div class="sp-nav-label">Recents</div>
+    <a href="#"><span data-icon="clock"></span><span class="sp-nav-text">Syllabus storage</span></a>
+    <a href="#"><span data-icon="clock"></span><span class="sp-nav-text">Biology to JSON</span></a>
+  </aside>
+  <div>
+    <header class="sp-navbar">
+      <button class="sp-btn-icon sp-btn-bare" id="sbToggle" aria-label="Toggle sidebar"></button>
+      <a class="sp-navbar-brand" href="#"><span class="sp-mark">✺</span><span class="sp-brand-text">Soft Paper UI</span></a>
+      <nav class="sp-navbar-links" aria-label="Main"><a class="sp-nav-link" href="#" aria-current="page">Resources</a><a class="sp-nav-link" href="#">Exams</a><a class="sp-nav-link" href="#">My Library</a></nav>
+      <span class="sp-navbar-spacer"></span>
+      <div class="sp-textbox is-pill has-value-off"><span data-icon="search"></span><input type="search" placeholder="Search resources" aria-label="Search"><button class="sp-btn-icon sp-btn-bare" data-sp-clear aria-label="Clear"><span data-icon="x"></span></button></div>
+      <button class="sp-btn-icon sp-btn-bare" id="cartBtn" aria-label="Cart" data-tip="Cart"><span data-icon="shopping-cart"></span><span class="sp-count" id="cartN" style="position:absolute;top:2px;right:0">0</span></button>
+      <button class="sp-btn-icon sp-btn-bare" id="themeBtn" aria-label="Toggle dark mode" data-tip="Light / dark"><span data-icon="moon"></span></button>
+      <button class="sp-btn-icon sp-btn-bare" id="moreBtn" aria-label="More"><span data-icon="ellipsis-vertical"></span></button>
+    </header>
+    <main class="sp-page" data-sp-main style="padding-bottom:110px">
+      <h1>Components</h1>
+      <div class="sp-tabs" id="tabs"><button aria-selected="true">Overview</button><button>Forms</button><button>Feedback</button><button>Motion</button></div>
+
+      <section class="sec"><h3>Banners</h3><div class="sp-stack">
+        <div class="sp-banner is-warning"><span data-icon="triangle-alert"></span><div class="sp-banner-body"><div class="sp-banner-title">Amber warning</div>Your session expires in 5 minutes.</div></div>
+        <div class="sp-banner is-error"><span data-icon="circle-alert"></span><div class="sp-banner-body"><div class="sp-banner-title">Error</div>Payment could not be processed.</div></div>
+        <div class="sp-banner is-success"><span data-icon="circle-check"></span><div class="sp-banner-body"><div class="sp-banner-title">Success</div>Report cards generated.</div></div>
+        <div class="sp-banner is-info"><span data-icon="info"></span><div class="sp-banner-body"><div class="sp-banner-title">Info</div>New term starts Monday.</div></div></div></section>
+
+      <section class="sec"><h3>Buttons (hover, press, loading all live)</h3>
+        <div class="sp-row" style="flex-wrap:wrap"><button>Primary</button><button class="sp-btn-secondary">Secondary</button><button class="sp-btn-tonal">Tonal</button><button class="sp-btn-ghost">Ghost</button><button class="sp-btn-text">Text</button><button class="sp-btn-accent">Accent</button><button class="sp-btn-danger"><span data-icon="trash-2"></span>Delete</button><button class="sp-btn-danger-quiet">Remove</button><button class="sp-btn-success">Approve</button><button disabled>Disabled</button></div>
+        <div class="sp-row" style="flex-wrap:wrap;margin-top:12px"><button id="saveBtn"><span data-icon="save"></span>Save (async)</button><button id="failBtn" class="sp-btn-secondary">Fails (async)</button><button class="sp-btn-icon" aria-label="Edit" data-tip="Edit"><span data-icon="pencil"></span></button><button class="sp-btn-send" aria-label="Send"><span data-icon="send"></span></button><div class="sp-btn-group"><button aria-pressed="true">Day</button><button>Week</button></div></div></section>
+
+      <section class="sec"><h3>Text boxes</h3><div class="sp-card sp-stack">
+        <div class="sp-field"><label>With icon + clear</label><div class="sp-textbox"><span data-icon="user"></span><input placeholder="Full name"><button class="sp-btn-icon sp-btn-bare" data-sp-clear aria-label="Clear"><span data-icon="x"></span></button></div></div>
+        <div class="sp-field"><label>Password</label><div class="sp-textbox"><span data-icon="lock"></span><input type="password" value="secret123"><button class="sp-btn-icon sp-btn-bare" data-sp-password aria-label="Show password"><span data-icon="eye"></span></button></div></div>
+        <div class="sp-field"><label>Invalid</label><div class="sp-textbox is-invalid"><span data-icon="mail"></span><input value="not-an-email"></div><div class="sp-error-text">Enter a valid email address.</div></div>
+        <div class="sp-field"><label>Valid</label><div class="sp-textbox is-valid"><span data-icon="check"></span><input value="derrick@school.ug"></div></div>
+        <div class="sp-field"><label>Disabled</label><div class="sp-textbox is-disabled"><span data-icon="lock"></span><input value="Locked" disabled></div></div>
+        <div class="sp-field"><label>Auto-growing textarea + counter</label><div class="sp-textbox is-multiline"><textarea data-sp-autogrow="200" maxlength="120" placeholder="Write a note…"></textarea></div><div class="sp-counter" data-sp-counter>0 / 120</div></div>
+        <div class="sp-field"><label>OTP</label><div class="sp-otp"><input maxlength="6" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"></div></div>
+        <div class="sp-field"><label>Quantity</label><div class="sp-numstep"><button class="sp-btn-icon" data-sp-step="-1" aria-label="Less"><span data-icon="minus"></span></button><input type="number" value="1" min="1" max="9"><button class="sp-btn-icon" data-sp-step="1" aria-label="More"><span data-icon="plus"></span></button></div></div>
+        <div class="sp-field"><label>Select</label><select><option>S.1</option><option>S.2</option></select></div>
+        <div class="sp-row"><label><input type="checkbox" checked> Remember</label><label><input type="radio" name="r" checked> A</label><label><input type="radio" name="r"> B</label><input type="checkbox" class="sp-switch" checked aria-label="Haptic"></div>
+        <input type="range"><progress value="60" max="100"></progress></div></section>
+
+      <section class="sec"><h3>Motion</h3><div class="sp-stack">
+        <div class="sp-segmented" id="seg"><button aria-pressed="true">Day</button><button>Week</button><button>Term</button></div>
+        <div class="sp-row" style="flex-wrap:wrap"><button class="sp-btn-secondary" id="addCart"><span data-icon="shopping-cart"></span>Add to cart (count bumps)</button><button class="sp-btn-secondary" id="swap">Page transition</button><button class="sp-btn-secondary" id="stag">Staggered list</button></div>
+        <ul class="sp-list sp-enter-stagger" id="stagList"><li class="sp-list-item"><span data-icon="file-text"></span><div class="sp-list-body"><div class="sp-list-title">Biology notes</div><div class="sp-list-sub">PDF · 12 pages</div></div></li><li class="sp-list-item"><span data-icon="file-text"></span><div class="sp-list-body"><div class="sp-list-title">Chemistry paper</div><div class="sp-list-sub">PDF · 8 pages</div></div></li><li class="sp-list-item"><span data-icon="file-text"></span><div class="sp-list-body"><div class="sp-list-title">Mock exam</div><div class="sp-list-sub">DOCX</div></div></li></ul></div></section>
+
+      <section class="sec"><h3>Payment / download status (async state machine)</h3><div id="pay" class="sp-status"></div>
+        <div class="sp-row" style="flex-wrap:wrap;margin-top:12px"><button class="sp-btn-secondary sp-btn-sm" data-s="submitting">Submitting</button><button class="sp-btn-secondary sp-btn-sm" data-s="awaiting">Awaiting</button><button class="sp-btn-secondary sp-btn-sm" data-s="pending">Pending</button><button class="sp-btn-secondary sp-btn-sm" data-s="success">Success</button><button class="sp-btn-secondary sp-btn-sm" data-s="failure">Failure</button></div></section>
+
+      <section class="sec"><h3>Dialogs and toasts</h3><div class="sp-row" style="flex-wrap:wrap">
+        <button class="sp-btn-secondary" data-t="success">Success</button><button class="sp-btn-secondary" data-t="error">Error</button><button class="sp-btn-secondary" data-t="warning">Warning</button><button class="sp-btn-secondary" data-t="info">Info (spam me)</button><button class="sp-btn-secondary" data-t="undo">Toast + Undo</button>
+        <button class="sp-btn-secondary" id="a">Alert</button><button class="sp-btn-secondary" id="c">Confirm</button><button class="sp-btn-secondary" id="p">Prompt</button><button class="sp-btn-secondary" id="sh">Sheet</button><button class="sp-btn-secondary" id="ld">Loader</button><button class="sp-btn-secondary" id="nat">Native alert()</button></div></section>
+
+      <section class="sec"><h3>Loading</h3><div class="sp-row"><span class="sp-spinner"></span><span class="sp-typing"><i></i><i></i><i></i></span><span class="sp-mark-spin">✺</span></div><span class="sp-skeleton" style="width:60%;margin-top:10px"></span><span class="sp-skeleton" style="width:90%;margin-top:8px"></span></section>
+
+      <section class="sec"><h3>Badges, chips, list</h3><div class="sp-row" style="flex-wrap:wrap"><span class="sp-badge sp-badge-solid">Free</span><span class="sp-badge sp-badge-blue">Pro</span><span class="sp-badge sp-badge-amber">5× usage</span><span class="sp-badge sp-badge-success">Paid</span><span class="sp-badge sp-badge-danger">Overdue</span><span class="sp-badge sp-badge-accent">New</span><button class="sp-chip" aria-pressed="true">Selected</button><button class="sp-chip">Chip</button><span class="sp-avatar">DM</span></div>
+      <ul class="sp-list" style="margin-top:12px"><li class="sp-list-item"><span data-icon="user"></span><div class="sp-list-body"><div class="sp-list-title">Profile</div></div><span class="sp-list-end" data-icon="chevron-right"></span></li><li class="sp-list-item is-selected"><div class="sp-list-body"><div class="sp-list-title">Selected</div><div class="sp-list-sub">Blue state</div></div><span class="sp-list-end" data-icon="check"></span></li><li class="sp-list-item is-danger"><span data-icon="log-out"></span><div class="sp-list-body"><div class="sp-list-title">Log out</div></div></li></ul></section>
+
+      <section class="sec"><h3>Icons (<span id="iconCount"></span>)</h3><div class="grid-icons" id="icons"></div></section>
+      <section class="sec"><h3>Theme</h3><div class="sp-segmented" id="mode"><button data-m="system" aria-pressed="true">System</button><button data-m="light">Light</button><button data-m="dark">Dark</button></div><div style="margin-top:12px"><button class="sp-btn-ghost" id="off">Switch theme OFF (reverts everything)</button></div></section>
+    </main>
+  </div>
+</div>
+<nav class="sp-bottomnav"><a href="#" aria-current="page"><span class="sp-nav-pill" data-icon="house"></span>Home</a><a href="#"><span class="sp-nav-pill" data-icon="search"></span>Search</a><a href="#"><span class="sp-nav-pill" data-icon="bell"></span>Alerts</a><a href="#"><span class="sp-nav-pill" data-icon="bookmark"></span>Saved</a></nav>
+<script src="theme.js"></script>
+<script>
+var $=function(s){return document.querySelector(s)};
+SoftPaper.sidebar({shell:$('#shell'),toggle:$('#sbToggle')}); SoftPaper.tabs($('#tabs')); SoftPaper.segmented($('#seg')); SoftPaper.offlineBanner();
+$('#icons').innerHTML=SoftPaper.iconNames.map(function(n){return '<div>'+SoftPaper.icon(n,'sp-icon-lg')+n+'</div>'}).join(''); $('#iconCount').textContent=SoftPaper.iconNames.length;
+document.querySelectorAll('[data-t]').forEach(function(b){b.onclick=function(){var t=b.dataset.t;
+ if(t==='undo')SoftPaper.toast('Student archived',{type:'info',action:'Undo',onAction:function(){SoftPaper.toast.success('Restored')}});
+ else SoftPaper.toast[t]({success:'Saved successfully',error:'Something went wrong',warning:'Low storage',info:'Heads up'}[t]);};});
+$('#a').onclick=function(){SoftPaper.alert({title:'Heads up',message:'Marks are locked after submission.',type:'warning'})};
+$('#c').onclick=async function(){var ok=await SoftPaper.confirm({title:'Delete class?',message:'This cannot be undone.',danger:true,okText:'Delete'});SoftPaper.toast(ok?'Deleted':'Cancelled',{type:ok?'success':'info'})};
+$('#p').onclick=async function(){var v=await SoftPaper.prompt({title:'Rename',defaultValue:'S.1 Biology'});if(v!==null)SoftPaper.toast('Renamed to '+v,{type:'success'})};
+$('#sh').onclick=function(){SoftPaper.sheet({title:'Add to chat',content:'<ul class="sp-list"><li class="sp-list-item"><span data-icon="camera"></span><div class="sp-list-body"><div class="sp-list-title">Camera</div></div></li><li class="sp-list-item"><span data-icon="upload"></span><div class="sp-list-body"><div class="sp-list-title">Files</div></div></li></ul>'})};
+$('#ld').onclick=function(){SoftPaper.loading(true,'Generating…');setTimeout(function(){SoftPaper.loading(false)},1800)};
+$('#nat').onclick=function(){SoftPaper.takeOverNativeDialogs();alert('This used to be an ugly browser alert.');SoftPaper.restoreNativeDialogs()};
+$('#saveBtn').onclick=function(e){SoftPaper.asyncButton(e.currentTarget,function(){return new Promise(function(r){setTimeout(r,1200)})},{successText:'Saved'})};
+$('#failBtn').onclick=function(e){SoftPaper.asyncButton(e.currentTarget,function(){return new Promise(function(_,j){setTimeout(j,900)})},{errorText:'Failed'}).catch(function(){})};
+var n=0;$('#addCart').onclick=function(){n++;$('#cartN').textContent=n;SoftPaper.bump($('#cartN'));SoftPaper.toast.success('Added to cart')};
+$('#swap').onclick=function(){SoftPaper.transition(function(){})};
+$('#stag').onclick=function(){var l=$('#stagList');l.classList.remove('sp-enter-stagger');void l.offsetWidth;l.classList.add('sp-enter-stagger')};
+var pay=SoftPaper.status($('#pay')),C={submitting:['Processing…','Please wait.'],awaiting:['Approve the Mobile Money prompt','Check your phone to continue.'],pending:['Payment is pending','We are waiting for confirmation.'],success:['Payment confirmed','Your resources are ready.'],failure:['Payment was not completed','Check your number and try again.']};
+pay.set('awaiting',{title:C.awaiting[0],text:C.awaiting[1]});
+document.querySelectorAll('[data-s]').forEach(function(b){b.onclick=function(){var s=b.dataset.s;pay.set(s,{title:C[s][0],text:C[s][1],actions:s==='failure'?[{label:'Retry',primary:true,onClick:function(){}},{label:'Edit number',onClick:function(){}}]:s==='success'?[{label:'Open library',primary:true,onClick:function(){}}]:null})}});
+$('#moreBtn').onclick=function(e){SoftPaper.menu(e.currentTarget,[{label:'Share',icon:'share-2'},{label:'Rename',icon:'pencil'},'-',{label:'Delete',icon:'trash-2',danger:true}])};
+var dark=false;$('#themeBtn').onclick=function(){dark=!dark;SoftPaper.setColor(dark?'dark':'light')};
+$('#mode').onclick=function(e){var m=e.target.dataset.m;if(!m)return;SoftPaper.setColor(m);document.querySelectorAll('#mode button').forEach(function(b){b.setAttribute('aria-pressed',b===e.target)})};
+$('#off').onclick=function(){SoftPaper.disable();setTimeout(function(){if(confirm('Theme is OFF (native dialog now). Turn it back on?'))SoftPaper.enable()},50)};
+</script>
+</body></html>
